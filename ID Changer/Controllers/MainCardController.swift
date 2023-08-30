@@ -88,7 +88,7 @@ class MainCardController {
         let fm = FileManager.default
         
         for f in ChangingFile.allCases {
-            let imgPath = "\(cardID)/\(f.rawValue)"
+            let imgPath = "/var/mobile/Library/Passes/Cards/\(cardID)/\(f.rawValue)"
             if fm.fileExists(atPath: imgPath + ".backup") {
                 do {
                     try? fm.removeItem(atPath: imgPath)
