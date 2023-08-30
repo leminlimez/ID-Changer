@@ -1,0 +1,7 @@
+version: "Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)"
+options: "b3342c651622a212325afb149c16ac405f7fc02ff1f57bbace09a1d436a084c2"
+build_start_time: [1693360027, 751092000]
+build_end_time: [1693360028, 589789000]
+inputs:
+  "/Users/lemin/Documents/GitHub/GitHub/Cowabunga/MacDirtyCowSwift/MacDirtyCowSwift.swift": [1679924098, 219466957]
+  "/Users/lemin/Documents/GitHub/GitHub/ID-Changer/MacDirtyCowSwift/Wrappers.swift": [1679924094, 283016080]

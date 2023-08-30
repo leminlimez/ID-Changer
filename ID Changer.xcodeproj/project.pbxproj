@@ -11,7 +11,41 @@
 		6FE6D11E2A9EBD1A002CFD2F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D11D2A9EBD1A002CFD2F /* ContentView.swift */; };
 		6FE6D1202A9EBD1B002CFD2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FE6D11F2A9EBD1B002CFD2F /* Assets.xcassets */; };
 		6FE6D1232A9EBD1B002CFD2F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FE6D1222A9EBD1B002CFD2F /* Preview Assets.xcassets */; };
+		6FE6D1552A9EBE22002CFD2F /* jit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D1492A9EBE21002CFD2F /* jit.m */; };
+		6FE6D1562A9EBE22002CFD2F /* vm_unaligned_copy_switch_race.c in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D14A2A9EBE21002CFD2F /* vm_unaligned_copy_switch_race.c */; };
+		6FE6D1572A9EBE22002CFD2F /* grant_full_disk_access.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D14B2A9EBE21002CFD2F /* grant_full_disk_access.m */; };
+		6FE6D1582A9EBE22002CFD2F /* helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D14C2A9EBE21002CFD2F /* helpers.m */; };
+		6FE6D1592A9EBE22002CFD2F /* Wrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D1522A9EBE21002CFD2F /* Wrappers.swift */; };
+		6FE6D15A2A9EBE22002CFD2F /* MacDirtyCowSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D1542A9EBE22002CFD2F /* MacDirtyCowSwift.swift */; };
+		6FE6D15D2A9EC0A2002CFD2F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D15C2A9EC0A2002CFD2F /* CardView.swift */; };
+		6FE6D1602A9EC803002CFD2F /* MainCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D15F2A9EC803002CFD2F /* MainCardController.swift */; };
+		6FE6D1622A9ECCAE002CFD2F /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D1612A9ECCAE002CFD2F /* ImagePickerView.swift */; };
+		6FE6D1642A9ECDFF002CFD2F /* libMacDirtyCowSwift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE6D1412A9EBE0F002CFD2F /* libMacDirtyCowSwift.a */; };
+		6FE6D1682A9ED130002CFD2F /* entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FE6D1672A9ED130002CFD2F /* entitlements.plist */; };
+		6FE6D16B2A9ED204002CFD2F /* Alert++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D16A2A9ED204002CFD2F /* Alert++.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6FE6D1652A9ECDFF002CFD2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6FE6D1102A9EBD1A002CFD2F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6FE6D1402A9EBE0F002CFD2F;
+			remoteInfo = MacDirtyCowSwift;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6FE6D13F2A9EBE0F002CFD2F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6FE6D1182A9EBD1A002CFD2F /* ID Changer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ID Changer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -19,10 +53,35 @@
 		6FE6D11D2A9EBD1A002CFD2F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6FE6D11F2A9EBD1B002CFD2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6FE6D1222A9EBD1B002CFD2F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6FE6D1412A9EBE0F002CFD2F /* libMacDirtyCowSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMacDirtyCowSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FE6D1492A9EBE21002CFD2F /* jit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = jit.m; sourceTree = "<group>"; };
+		6FE6D14A2A9EBE21002CFD2F /* vm_unaligned_copy_switch_race.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vm_unaligned_copy_switch_race.c; sourceTree = "<group>"; };
+		6FE6D14B2A9EBE21002CFD2F /* grant_full_disk_access.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = grant_full_disk_access.m; sourceTree = "<group>"; };
+		6FE6D14C2A9EBE21002CFD2F /* helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = helpers.m; sourceTree = "<group>"; };
+		6FE6D14D2A9EBE21002CFD2F /* jit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jit.h; sourceTree = "<group>"; };
+		6FE6D14F2A9EBE21002CFD2F /* vm_unaligned_copy_switch_race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vm_unaligned_copy_switch_race.h; sourceTree = "<group>"; };
+		6FE6D1502A9EBE21002CFD2F /* helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helpers.h; sourceTree = "<group>"; };
+		6FE6D1512A9EBE21002CFD2F /* grant_full_disk_access.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = grant_full_disk_access.h; sourceTree = "<group>"; };
+		6FE6D1522A9EBE21002CFD2F /* Wrappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wrappers.swift; sourceTree = "<group>"; };
+		6FE6D1532A9EBE22002CFD2F /* MacDirtyCowSwift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MacDirtyCowSwift-Bridging-Header.h"; sourceTree = "<group>"; };
+		6FE6D1542A9EBE22002CFD2F /* MacDirtyCowSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MacDirtyCowSwift.swift; path = ../../Cowabunga/MacDirtyCowSwift/MacDirtyCowSwift.swift; sourceTree = "<group>"; };
+		6FE6D15C2A9EC0A2002CFD2F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		6FE6D15F2A9EC803002CFD2F /* MainCardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCardController.swift; sourceTree = "<group>"; };
+		6FE6D1612A9ECCAE002CFD2F /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		6FE6D1672A9ED130002CFD2F /* entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = entitlements.plist; sourceTree = "<group>"; };
+		6FE6D16A2A9ED204002CFD2F /* Alert++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert++.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		6FE6D1152A9EBD1A002CFD2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FE6D1642A9ECDFF002CFD2F /* libMacDirtyCowSwift.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FE6D13E2A9EBE0F002CFD2F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -35,8 +94,11 @@
 		6FE6D10F2A9EBD1A002CFD2F = {
 			isa = PBXGroup;
 			children = (
+				6FE6D1672A9ED130002CFD2F /* entitlements.plist */,
 				6FE6D11A2A9EBD1A002CFD2F /* ID Changer */,
+				6FE6D1422A9EBE0F002CFD2F /* MacDirtyCowSwift */,
 				6FE6D1192A9EBD1A002CFD2F /* Products */,
+				6FE6D1632A9ECDFF002CFD2F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -44,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				6FE6D1182A9EBD1A002CFD2F /* ID Changer.app */,
+				6FE6D1412A9EBE0F002CFD2F /* libMacDirtyCowSwift.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -51,8 +114,10 @@
 		6FE6D11A2A9EBD1A002CFD2F /* ID Changer */ = {
 			isa = PBXGroup;
 			children = (
+				6FE6D1692A9ED1FC002CFD2F /* Extensions */,
+				6FE6D15E2A9EC7F8002CFD2F /* Controllers */,
+				6FE6D15B2A9EC08E002CFD2F /* Views */,
 				6FE6D11B2A9EBD1A002CFD2F /* ID_ChangerApp.swift */,
-				6FE6D11D2A9EBD1A002CFD2F /* ContentView.swift */,
 				6FE6D11F2A9EBD1B002CFD2F /* Assets.xcassets */,
 				6FE6D1212A9EBD1B002CFD2F /* Preview Content */,
 			);
@@ -65,6 +130,65 @@
 				6FE6D1222A9EBD1B002CFD2F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6FE6D1422A9EBE0F002CFD2F /* MacDirtyCowSwift */ = {
+			isa = PBXGroup;
+			children = (
+				6FE6D1482A9EBE21002CFD2F /* Exploit */,
+				6FE6D1532A9EBE22002CFD2F /* MacDirtyCowSwift-Bridging-Header.h */,
+				6FE6D1542A9EBE22002CFD2F /* MacDirtyCowSwift.swift */,
+				6FE6D1522A9EBE21002CFD2F /* Wrappers.swift */,
+			);
+			path = MacDirtyCowSwift;
+			sourceTree = "<group>";
+		};
+		6FE6D1482A9EBE21002CFD2F /* Exploit */ = {
+			isa = PBXGroup;
+			children = (
+				6FE6D1492A9EBE21002CFD2F /* jit.m */,
+				6FE6D14A2A9EBE21002CFD2F /* vm_unaligned_copy_switch_race.c */,
+				6FE6D14B2A9EBE21002CFD2F /* grant_full_disk_access.m */,
+				6FE6D14C2A9EBE21002CFD2F /* helpers.m */,
+				6FE6D14D2A9EBE21002CFD2F /* jit.h */,
+				6FE6D14F2A9EBE21002CFD2F /* vm_unaligned_copy_switch_race.h */,
+				6FE6D1502A9EBE21002CFD2F /* helpers.h */,
+				6FE6D1512A9EBE21002CFD2F /* grant_full_disk_access.h */,
+			);
+			path = Exploit;
+			sourceTree = "<group>";
+		};
+		6FE6D15B2A9EC08E002CFD2F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6FE6D11D2A9EBD1A002CFD2F /* ContentView.swift */,
+				6FE6D15C2A9EC0A2002CFD2F /* CardView.swift */,
+				6FE6D1612A9ECCAE002CFD2F /* ImagePickerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6FE6D15E2A9EC7F8002CFD2F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6FE6D15F2A9EC803002CFD2F /* MainCardController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		6FE6D1632A9ECDFF002CFD2F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6FE6D1692A9ED1FC002CFD2F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6FE6D16A2A9ED204002CFD2F /* Alert++.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -81,11 +205,29 @@
 			buildRules = (
 			);
 			dependencies = (
+				6FE6D1662A9ECDFF002CFD2F /* PBXTargetDependency */,
 			);
 			name = "ID Changer";
 			productName = "ID Changer";
 			productReference = 6FE6D1182A9EBD1A002CFD2F /* ID Changer.app */;
 			productType = "com.apple.product-type.application";
+		};
+		6FE6D1402A9EBE0F002CFD2F /* MacDirtyCowSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6FE6D1452A9EBE0F002CFD2F /* Build configuration list for PBXNativeTarget "MacDirtyCowSwift" */;
+			buildPhases = (
+				6FE6D13D2A9EBE0F002CFD2F /* Sources */,
+				6FE6D13E2A9EBE0F002CFD2F /* Frameworks */,
+				6FE6D13F2A9EBE0F002CFD2F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacDirtyCowSwift;
+			productName = MacDirtyCowSwift;
+			productReference = 6FE6D1412A9EBE0F002CFD2F /* libMacDirtyCowSwift.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -98,6 +240,9 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					6FE6D1172A9EBD1A002CFD2F = {
+						CreatedOnToolsVersion = 14.3;
+					};
+					6FE6D1402A9EBE0F002CFD2F = {
 						CreatedOnToolsVersion = 14.3;
 					};
 				};
@@ -116,6 +261,7 @@
 			projectRoot = "";
 			targets = (
 				6FE6D1172A9EBD1A002CFD2F /* ID Changer */,
+				6FE6D1402A9EBE0F002CFD2F /* MacDirtyCowSwift */,
 			);
 		};
 /* End PBXProject section */
@@ -125,6 +271,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FE6D1682A9ED130002CFD2F /* entitlements.plist in Resources */,
 				6FE6D1232A9EBD1B002CFD2F /* Preview Assets.xcassets in Resources */,
 				6FE6D1202A9EBD1B002CFD2F /* Assets.xcassets in Resources */,
 			);
@@ -138,11 +285,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FE6D11E2A9EBD1A002CFD2F /* ContentView.swift in Sources */,
+				6FE6D15D2A9EC0A2002CFD2F /* CardView.swift in Sources */,
+				6FE6D1602A9EC803002CFD2F /* MainCardController.swift in Sources */,
 				6FE6D11C2A9EBD1A002CFD2F /* ID_ChangerApp.swift in Sources */,
+				6FE6D16B2A9ED204002CFD2F /* Alert++.swift in Sources */,
+				6FE6D1622A9ECCAE002CFD2F /* ImagePickerView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FE6D13D2A9EBE0F002CFD2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FE6D15A2A9EBE22002CFD2F /* MacDirtyCowSwift.swift in Sources */,
+				6FE6D1572A9EBE22002CFD2F /* grant_full_disk_access.m in Sources */,
+				6FE6D1552A9EBE22002CFD2F /* jit.m in Sources */,
+				6FE6D1562A9EBE22002CFD2F /* vm_unaligned_copy_switch_race.c in Sources */,
+				6FE6D1582A9EBE22002CFD2F /* helpers.m in Sources */,
+				6FE6D1592A9EBE22002CFD2F /* Wrappers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6FE6D1662A9ECDFF002CFD2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6FE6D1402A9EBE0F002CFD2F /* MacDirtyCowSwift */;
+			targetProxy = 6FE6D1652A9ECDFF002CFD2F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		6FE6D1242A9EBD1B002CFD2F /* Debug */ = {
@@ -195,7 +367,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -249,7 +421,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -275,6 +447,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,6 +477,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -312,6 +486,34 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.leminlimez.ID-Changer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6FE6D1462A9EBE0F002CFD2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2P4CP47H76;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MacDirtyCowSwift/MacDirtyCowSwift-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6FE6D1472A9EBE0F002CFD2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2P4CP47H76;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MacDirtyCowSwift/MacDirtyCowSwift-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -334,6 +536,15 @@
 			buildConfigurations = (
 				6FE6D1272A9EBD1B002CFD2F /* Debug */,
 				6FE6D1282A9EBD1B002CFD2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6FE6D1452A9EBE0F002CFD2F /* Build configuration list for PBXNativeTarget "MacDirtyCowSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FE6D1462A9EBE0F002CFD2F /* Debug */,
+				6FE6D1472A9EBE0F002CFD2F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

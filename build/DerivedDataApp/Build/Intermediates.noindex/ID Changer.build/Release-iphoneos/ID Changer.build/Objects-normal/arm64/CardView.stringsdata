@@ -1,0 +1,16 @@
+{
+  "source": "/Users/lemin/Documents/GitHub/GitHub/ID-Changer/ID Changer/Views/CardView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Your Name"
+      },
+      {
+        "comment": "",
+        "key": "Student"
+      }
+    ]
+  },
+  "version": 1
+}
