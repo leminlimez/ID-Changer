@@ -10,9 +10,9 @@ import SwiftUI
 import MacDirtyCowSwift
 
 enum ChangingFile: String, CaseIterable {
-    case logo = "Logo@3x.png"
-    case strip = "Strip@2x.png"
-    case thumbnail = "Thumbnail@2x.png"
+    case logo = "logo@3x.png"
+    case strip = "strip@2x.png"
+    case thumbnail = "thumbnail@2x.png"
 }
 
 func respring() {
@@ -59,7 +59,7 @@ class MainCardController {
             for pass in passes {
                 let files = try fm.contentsOfDirectory(atPath: path + pass)
                 
-                if (files.contains("logo@3x.png") && files.contains("strip@2x.png") && files.contains("thumbnail@2x.png"))
+                if (files.contains(ChangingFile.logo.rawValue) && files.contains(ChangingFile.strip.rawValue) && files.contains(ChangingFile.thumbnail.rawValue))
                 {
                     data.append(pass)
                 }
