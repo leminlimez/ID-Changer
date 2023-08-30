@@ -85,18 +85,18 @@ struct ContentView: View {
                 }
                 
                 // Reset Button
-                Button(action: {
-                    MainCardController.resetImages(cardID: cardPath)
-                }) {
-                    Image(systemName: "arrow.clockwise")
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(Color.red)
-                        .cornerRadius(8)
-                        .opacity(showReset ? 1 : 0)
-                        .disabled(!showReset)
+                if showReset {
+                    Button(action: {
+                        MainCardController.resetImages(cardID: cardPath)
+                    }) {
+                        Image(systemName: "arrow.clockwise")
+                            .padding()
+                            .foregroundColor(.white)
+                            .background(Color.red)
+                            .cornerRadius(8)
+                    }
+                    .padding(.trailing, 8)
                 }
-                .padding(.trailing, 8)
             }
         }
         .padding()
