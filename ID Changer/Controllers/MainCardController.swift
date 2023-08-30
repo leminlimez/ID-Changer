@@ -76,7 +76,7 @@ class MainCardController {
         let fm = FileManager.default
         
         for f in ChangingFile.allCases {
-            if fm.fileExists(atPath: "\(cardID)/\(f.rawValue).backup") {
+            if fm.fileExists(atPath: "/var/mobile/Library/Passes/Cards/\(cardID)/\(f.rawValue).backup") {
                 return true
             }
         }
