@@ -1,0 +1,72 @@
+{
+  "buildCommand" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildOnly"
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "29400157d0f279e32a5040a5f7a414fc6533751071c99c8370db8bfa39cf9a03"
+    }
+  ],
+  "containerPath" : "/Users/lemin/Documents/GitHub/GitHub/ID-Changer/ID Changer.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "undefined_arch",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : true,
+      "platform" : "iphoneos",
+      "sdk" : "iphoneos16.4",
+      "sdkVariant" : "iphoneos",
+      "supportedArchitectures" : [
+        "armv4t",
+        "armv5",
+        "armv6",
+        "armv7",
+        "armv7f",
+        "armv7s",
+        "armv7k",
+        "arm64",
+        "arm64e"
+      ],
+      "targetArchitecture" : "undefined_arch"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/lemin/Documents/GitHub/GitHub/ID-Changer/build/DerivedDataApp/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/lemin/Documents/GitHub/GitHub/ID-Changer/build/DerivedDataApp/Build/Products",
+      "derivedDataPath" : "/Users/lemin/Documents/GitHub/GitHub/ID-Changer/build/DerivedDataApp",
+      "indexDataStoreFolderPath" : "/Users/lemin/Documents/GitHub/GitHub/ID-Changer/build/DerivedDataApp/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/lemin/Documents/GitHub/GitHub/ID-Changer/build/DerivedDataApp/Index.noindex/PrecompiledHeaders",
+      "pchPath" : "/Users/lemin/Documents/GitHub/GitHub/ID-Changer/build/DerivedDataApp/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Release",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+          "CODE_SIGN_ENTITLEMENTS" : "",
+          "CODE_SIGN_IDENTITY" : "",
+          "CODE_SIGNING_ALLOWED" : "NO",
+          "CODE_SIGNING_REQUIRED" : "NO"
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ACTION" : "build",
+          "COLOR_DIAGNOSTICS" : "YES",
+          "diagnostic_message_length" : "80",
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

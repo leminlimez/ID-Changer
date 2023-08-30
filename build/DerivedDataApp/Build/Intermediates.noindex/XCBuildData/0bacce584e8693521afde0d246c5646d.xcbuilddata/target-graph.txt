@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+MacDirtyCowSwift in ID Changer, no dependencies
+ID Changer in ID Changer, depends on:
+MacDirtyCowSwift in ID Changer (explicit)
