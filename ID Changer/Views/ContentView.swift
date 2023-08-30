@@ -33,6 +33,7 @@ struct ContentView: View {
                     UIApplication.shared.alert(title: "Default Image Sizes", body: "- Logo: 858x150\n- Strip: 1146x333\n- Thumbnail: 300x400?\n\nThese image sizes are not required, the card should automatically crop them.\n\nDevice will respring after applying/resetting.")
                 }) {
                     Image(systemName: "info.circle")
+                        .font(.title3)
                 }
             }
             .padding(.bottom, 10)
