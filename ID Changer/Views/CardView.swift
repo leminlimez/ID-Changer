@@ -51,7 +51,7 @@ struct CardView: View {
                             .frame(width: 286, height: 50)
                             .contentShape(Rectangle())
                             .clipped()
-                            .padding(.horizontal, 5)
+                            .padding(.horizontal, 10)
                     }
                     Spacer()
                 }
