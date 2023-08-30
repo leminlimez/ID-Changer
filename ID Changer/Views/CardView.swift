@@ -44,7 +44,7 @@ struct CardView: View {
                         changingType = .logo
                         showSheet = true
                     }) {
-                        Image(uiImage: UIImage(contentsOfFile: "/var/mobile/Library/Passes/Cards/" + cardPath + "/logo@3x.png")!)
+                        Image(uiImage: changingLogo ? logoImage : UIImage(contentsOfFile: "/var/mobile/Library/Passes/Cards/" + cardPath + "/logo@3x.png")!)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 286, height: 50)
@@ -65,7 +65,7 @@ struct CardView: View {
                         changingType = .strip
                         showSheet = true
                     }) {
-                        Image(uiImage: UIImage(contentsOfFile: "/var/mobile/Library/Passes/Cards/" + cardPath + "/strip@2x.png")!)
+                        Image(uiImage: changingStrip ? stripImage : UIImage(contentsOfFile: "/var/mobile/Library/Passes/Cards/" + cardPath + "/strip@2x.png")!)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 358, height: 100)
@@ -82,7 +82,7 @@ struct CardView: View {
                         changingType = .thumbnail
                         showSheet = true
                     }) {
-                        Image(uiImage: UIImage(contentsOfFile: "/var/mobile/Library/Passes/Cards/" + cardPath + "/thumbnail@2x.png")!)
+                        Image(uiImage: changingThumbnail ? thumbnailImage : UIImage(contentsOfFile: "/var/mobile/Library/Passes/Cards/" + cardPath + "/thumbnail@2x.png")!)
                             .resizable()
                             .scaledToFill()
                             .clipped()
