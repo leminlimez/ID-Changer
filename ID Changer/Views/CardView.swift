@@ -37,6 +37,7 @@ struct CardView: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(.gray, lineWidth: 1)
+                        .opacity(0.5)
                 )
             
             // Main Card Stuff
