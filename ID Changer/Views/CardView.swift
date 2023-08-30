@@ -22,6 +22,7 @@ struct CardView: View {
     
     @State var showSheet = false
     @State var changingType: ChangingFile = .logo
+    @State var changingImage = UIImage()
     
     var body: some View {
         ZStack {
@@ -52,9 +53,6 @@ struct CardView: View {
                             .clipped()
                             .padding(.horizontal, 5)
                     }
-                    .onChange(of: self.logoImage) { _ in
-                        changingLogo = true
-                    }
                     Spacer()
                 }
                 
@@ -72,9 +70,6 @@ struct CardView: View {
                             .contentShape(Rectangle())
                             .clipped()
                     }
-                    .onChange(of: self.stripImage) { _ in
-                        changingStrip = true
-                    }
                     
                     // Profile Picture
                     Button(action: {
@@ -90,9 +85,6 @@ struct CardView: View {
                             .frame(width: 100, height: 100)
                     }
                     .offset(y: 56)
-                    .onChange(of: self.thumbnailImage) { _ in
-                        changingThumbnail = true
-                    }
                 }
                 .padding(.bottom, 50)
                 
@@ -109,12 +101,20 @@ struct CardView: View {
             }
         }
         .sheet(isPresented: $showSheet) {
-            ImagePickerView(
-                sourceType: .photoLibrary,
-                selectedImage: changingType == .logo ? self.$logoImage // logo
-                : changingType == .strip ? self.$stripImage // strip
-                : self.$thumbnailImage // thumbnail
-            )
+            ImagePickerView(sourceType: .photoLibrary, selectedImage: $changingImage)
+        }
+        .onChange(of: changingImage) { newImage in
+            switch changingType {
+            case .logo:
+                logoImage = newImage
+                changingLogo = true
+            case .strip:
+                stripImage = newImage
+                changingStrip = true
+            case .thumbnail:
+                thumbnailImage = newImage
+                changingThumbnail = true
+            }
         }
         .frame(width: 358, height: 448)
     }
