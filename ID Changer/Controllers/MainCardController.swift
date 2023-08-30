@@ -45,6 +45,9 @@ func respring() {
 
 class MainCardController {
     // Code adapted from Cowabunga
+    
+    // MARK: General Card Methods
+    
     static func getPasses() -> [String]
     {
         let fm = FileManager.default
@@ -84,6 +87,44 @@ class MainCardController {
         return false
     }
     
+    // general function to set all changes
+    static func setChanges(cardID: String, logo: UIImage? = nil, strip: UIImage? = nil, thumbnail: UIImage? = nil, holderName: String? = nil, originalName: String? = nil, holderStatus: String? = nil, originalStatus: String? = nil) {
+        let fm = FileManager.default
+        
+        // set all the images
+        setImages(cardID: cardID, logo: logo, strip: strip, thumbnail: thumbnail)
+        
+        // set the card info
+        setCardInfo(cardID: cardID, holderName: holderName, originalName: originalName, holderStatus: holderStatus, originalStatus: originalStatus)
+        
+        // do not force delete in case it is already not there
+        try? fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + cardID.replacingOccurrences(of: "pkpass", with: "cache"))
+        
+        // respring to apply changes
+        respring()
+    }
+    
+    // general function to reset all changes
+    static func resetChanges(cardID: String, images: Bool = true, cardInfo: Bool = true) {
+        let fm = FileManager.default
+        
+        if images {
+            resetImages(cardID: cardID)
+        }
+        if cardInfo {
+            resetCardInfo(cardID: cardID)
+        }
+        
+        // do not force delete in case it is already not there
+        try? fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + cardID.replacingOccurrences(of: "pkpass", with: "cache"))
+        
+        // respring to apply changes
+        respring()
+    }
+    
+    
+    // MARK: Image Methods
+    
     static func resetImages(cardID: String) {
         let fm = FileManager.default
         
@@ -98,17 +139,9 @@ class MainCardController {
                 }
             }
         }
-        
-        // do not force delete in case it is already not there
-        try? fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + cardID.replacingOccurrences(of: "pkpass", with: "cache"))
-        
-        // respring to apply changes
-        respring()
     }
     
     static func setImages(cardID: String, logo: UIImage?, strip: UIImage?, thumbnail: UIImage?) {
-        let fm = FileManager.default
-        
         // set the logo
         if logo != nil {
             setImage(cardID: cardID, image: logo!, fileType: .logo)
@@ -121,12 +154,6 @@ class MainCardController {
         if thumbnail != nil {
             setImage(cardID: cardID, image: thumbnail!, fileType: .thumbnail)
         }
-        
-        // do not force delete in case it is already not there
-        try? fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + cardID.replacingOccurrences(of: "pkpass", with: "cache"))
-        
-        // respring to apply changes
-        respring()
     }
     
     static func setImage(cardID: String, image: UIImage, fileType: ChangingFile) {
@@ -136,13 +163,18 @@ class MainCardController {
                 
                 let path = "/var/mobile/Library/Passes/Cards/\(cardID)/\(fileType.rawValue)"
                 
-                try fm.moveItem(atPath: path, toPath: path + ".backup")
+                if !fm.fileExists(atPath: path + ".backup") {
+                    try fm.moveItem(atPath: path, toPath: path + ".backup")
+                }
                 try data.write(to: URL(fileURLWithPath: path))
             } catch {
                 print(error.localizedDescription)
             }
         }
     }
+    
+    
+    // MARK: Card Info Methods
     
     static func getCardInfo(cardID: String) -> [String: String] {
         // gets info such as the name and labels
@@ -186,5 +218,52 @@ class MainCardController {
         }
         
         return infoDict
+    }
+    
+    static func setCardInfo(cardID: String, holderName: String?, originalName: String?, holderStatus: String?, originalStatus: String?) {
+        // skip the rest of the function if both are nil
+        if (holderName == nil || originalName == nil) && (holderStatus == nil || originalStatus == nil) { return }
+        
+        let fm = FileManager.default
+        let jsonPath = "/var/mobile/Library/Passes/Cards/\(cardID)/pass.json"
+        
+        do {
+            let contents = try String(contentsOfFile: jsonPath)
+            var newContents = contents
+            
+            // replace the original name
+            if let og = originalName, let hn = holderName {
+                newContents = newContents.replacingOccurrences(of: og, with: hn)
+            }
+            
+            // replace the original status
+            if let og = originalStatus, let hs = holderStatus {
+                newContents = newContents.replacingOccurrences(of: og, with: hs)
+            }
+            
+            // write to the file
+            if let data = newContents.data(using: .utf8) {
+                if !fm.fileExists(atPath: jsonPath + ".backup") {
+                    try fm.moveItem(atPath: jsonPath, toPath: jsonPath + ".backup")
+                }
+                try data.write(to: URL(fileURLWithPath: jsonPath))
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    static func resetCardInfo(cardID: String) {
+        let fm = FileManager.default
+        let jsonPath = "/var/mobile/Library/Passes/Cards/\(cardID)/pass.json"
+        
+        if fm.fileExists(atPath: jsonPath + ".backup") {
+            do {
+                try? fm.removeItem(atPath: jsonPath)
+                try fm.moveItem(atPath: jsonPath + ".backup", toPath: jsonPath)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
