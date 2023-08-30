@@ -11,7 +11,8 @@ import SwiftUI
 struct CardView: View {
     @State var cardPath: String
     
-    @State var cardInfo: [String: String]
+    @Binding var holderName: String
+    @Binding var holderStatus: String
     
     @Binding var logoImage: UIImage
     @Binding var changingLogo: Bool
@@ -91,14 +92,15 @@ struct CardView: View {
                 .padding(.bottom, 50)
                 
                 // Name
-                Text(cardInfo["CardHolderName"] ?? "Your Name")
+                TextField("Your Name", text: $holderName)
                     .foregroundColor(.white)
-                    .font(.title2)
-                    .bold()
+                    .font(.title2.weight(.bold))
+                    .multilineTextAlignment(.center)
                 
                 // Student Label
-                Text(cardInfo["CardHolderStatus"] ?? "Your Status")
+                TextField("Your Status", text: $holderStatus)
                     .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
                 Spacer()
             }
         }

@@ -11,7 +11,11 @@ import MacDirtyCowSwift
 struct ContentView: View {
     @State var cardPath = ""
     
-    @State private var cardInfo: [String: String] = [:]
+    @State private var originalName: String = "Your Name"
+    @State private var originalStatus: String = "Your Status"
+    
+    @State private var holderName: String = "Your Name"
+    @State private var holderStatus: String = "Your Status"
     
     @State private var logoImage = UIImage()
     @State private var changingLogo = false
@@ -41,7 +45,8 @@ struct ContentView: View {
             .padding(.bottom, 10)
             
             HStack {
-                Text("Tap on an image to change it.")
+                Spacer()
+                Text("Tap on an image or text field to change it.")
                     .font(.headline)
                 Spacer()
             }
@@ -56,7 +61,7 @@ struct ContentView: View {
             } else {
                 CardView(
                     cardPath: cardPath,
-                    cardInfo: cardInfo,
+                    holderName: $holderName, holderStatus: $holderStatus,
                     logoImage: $logoImage, changingLogo: $changingLogo,
                     stripImage: $stripImage, changingStrip: $changingStrip,
                     thumbnailImage: $thumbnailImage, changingThumbnail: $changingThumbnail
@@ -68,11 +73,14 @@ struct ContentView: View {
             HStack {
                 // Apply Button
                 Button(action: {
-                    MainCardController.setImages(
+                    print("Applying Card...")
+                    MainCardController.setChanges(
                         cardID: cardPath,
                         logo: changingLogo ? logoImage : nil,
                         strip: changingStrip ? stripImage : nil,
-                        thumbnail: changingThumbnail ? thumbnailImage : nil
+                        thumbnail: changingThumbnail ? thumbnailImage : nil,
+                        holderName: holderName, originalName: originalName,
+                        holderStatus: holderStatus, originalStatus: originalStatus
                     )
                 }) {
                     Text("Apply")
@@ -83,14 +91,15 @@ struct ContentView: View {
                         .cornerRadius(8)
                         .padding(.horizontal)
                         .padding(.vertical, 16)
-                        .opacity((changingLogo || changingStrip || changingThumbnail) ? 1 : 0)
-                        .disabled(!changingLogo && !changingStrip && !changingThumbnail)
+                        .opacity((changingLogo || changingStrip || changingThumbnail || holderName != originalName || holderStatus != originalStatus) ? 1 : 0)
                 }
+                .disabled(!changingLogo && !changingStrip && !changingThumbnail && holderName == originalName && holderStatus == originalStatus)
                 
                 // Reset Button
                 if showReset {
                     Button(action: {
-                        MainCardController.resetImages(cardID: cardPath)
+                        print("Resetting Card...")
+                        MainCardController.resetChanges(cardID: cardPath)
                     }) {
                         Image(systemName: "arrow.clockwise")
                             .padding()
@@ -145,7 +154,15 @@ struct ContentView: View {
             showReset = MainCardController.canReset(cardID: cardPath)
             
             // get the card info
-            cardInfo = MainCardController.getCardInfo(cardID: cardPath)
+            let cardInfo = MainCardController.getCardInfo(cardID: cardPath)
+            if let name = cardInfo["CardHolderName"] {
+                originalName = name
+                holderName = name
+            }
+            if let status = cardInfo["CardHolderStatus"] {
+                originalStatus = status
+                holderStatus = status
+            }
         }
     }
 }
