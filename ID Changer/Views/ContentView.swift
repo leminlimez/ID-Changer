@@ -11,6 +11,8 @@ import MacDirtyCowSwift
 struct ContentView: View {
     @State var cardPath = ""
     
+    @State private var cardInfo: [String: String] = [:]
+    
     @State private var logoImage = UIImage()
     @State private var changingLogo = false
     
@@ -54,6 +56,7 @@ struct ContentView: View {
             } else {
                 CardView(
                     cardPath: cardPath,
+                    cardInfo: cardInfo,
                     logoImage: $logoImage, changingLogo: $changingLogo,
                     stripImage: $stripImage, changingStrip: $changingStrip,
                     thumbnailImage: $thumbnailImage, changingThumbnail: $changingThumbnail
@@ -140,6 +143,9 @@ struct ContentView: View {
             
             // check if the user can reset
             showReset = MainCardController.canReset(cardID: cardPath)
+            
+            // get the card info
+            cardInfo = MainCardController.getCardInfo(cardID: cardPath)
         }
     }
 }

@@ -11,6 +11,8 @@ import SwiftUI
 struct CardView: View {
     @State var cardPath: String
     
+    @State var cardInfo: [String: String]
+    
     @Binding var logoImage: UIImage
     @Binding var changingLogo: Bool
     
@@ -89,13 +91,13 @@ struct CardView: View {
                 .padding(.bottom, 50)
                 
                 // Name
-                Text("Your Name")
+                Text(cardInfo["CardHolderName"] ?? "Your Name")
                     .foregroundColor(.white)
                     .font(.title2)
                     .bold()
                 
                 // Student Label
-                Text("Student")
+                Text(cardInfo["CardHolderStatus"] ?? "Your Status")
                     .foregroundColor(.white)
                 Spacer()
             }
