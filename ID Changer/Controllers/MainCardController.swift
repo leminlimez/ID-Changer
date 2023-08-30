@@ -143,4 +143,48 @@ class MainCardController {
             }
         }
     }
+    
+    static func getCardInfo(cardID: String) -> [String: String] {
+        // gets info such as the name and labels
+        // format:
+        // [
+        //      "CardHolderName":   Name on Card
+        //      "CardHolderStatus": Status of Card Holder (ie. Student)
+        // ]
+        let jsonPath = "/var/mobile/Library/Passes/Cards/\(cardID)/pass.json"
+        
+        var infoDict: [String: String] = [:]
+        
+        do {
+            // get the json data
+            let contents = try String(contentsOfFile: jsonPath)
+            let data: Data? = contents.data(using: .utf8)
+            
+            if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                if let accessCard = json["accessCard"] as? [String: Any] {
+                    // primary field values
+                    if let primaryFieldsArray = accessCard["primaryFields"] as? [[String: Any]], let primaryFields = primaryFieldsArray.first {
+                        if let name = primaryFields["value"] as? String {
+                            infoDict["CardHolderName"] = name
+                        }
+                        if let status = primaryFields["label"] as? String {
+                            infoDict["CardHolderStatus"] = status
+                        }
+                    } else if let backFieldsArray = accessCard["backFields"] as? [[String: Any]], let backFields = backFieldsArray.first {
+                        // back field values
+                        if let name = backFields["value"] as? String {
+                            infoDict["CardHolderName"] = name
+                        }
+                        if let status = backFields["label"] as? String {
+                            infoDict["CardHolderStatus"] = status
+                        }
+                    }
+                }
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        return infoDict
+    }
 }
