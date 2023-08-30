@@ -11,7 +11,6 @@
 		6FE6D11E2A9EBD1A002CFD2F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D11D2A9EBD1A002CFD2F /* ContentView.swift */; };
 		6FE6D1202A9EBD1B002CFD2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FE6D11F2A9EBD1B002CFD2F /* Assets.xcassets */; };
 		6FE6D1232A9EBD1B002CFD2F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FE6D1222A9EBD1B002CFD2F /* Preview Assets.xcassets */; };
-		6FE6D1552A9EBE22002CFD2F /* jit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D1492A9EBE21002CFD2F /* jit.m */; };
 		6FE6D1562A9EBE22002CFD2F /* vm_unaligned_copy_switch_race.c in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D14A2A9EBE21002CFD2F /* vm_unaligned_copy_switch_race.c */; };
 		6FE6D1572A9EBE22002CFD2F /* grant_full_disk_access.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D14B2A9EBE21002CFD2F /* grant_full_disk_access.m */; };
 		6FE6D1582A9EBE22002CFD2F /* helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D14C2A9EBE21002CFD2F /* helpers.m */; };
@@ -54,11 +53,9 @@
 		6FE6D11F2A9EBD1B002CFD2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6FE6D1222A9EBD1B002CFD2F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6FE6D1412A9EBE0F002CFD2F /* libMacDirtyCowSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMacDirtyCowSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		6FE6D1492A9EBE21002CFD2F /* jit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = jit.m; sourceTree = "<group>"; };
 		6FE6D14A2A9EBE21002CFD2F /* vm_unaligned_copy_switch_race.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vm_unaligned_copy_switch_race.c; sourceTree = "<group>"; };
 		6FE6D14B2A9EBE21002CFD2F /* grant_full_disk_access.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = grant_full_disk_access.m; sourceTree = "<group>"; };
 		6FE6D14C2A9EBE21002CFD2F /* helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = helpers.m; sourceTree = "<group>"; };
-		6FE6D14D2A9EBE21002CFD2F /* jit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jit.h; sourceTree = "<group>"; };
 		6FE6D14F2A9EBE21002CFD2F /* vm_unaligned_copy_switch_race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vm_unaligned_copy_switch_race.h; sourceTree = "<group>"; };
 		6FE6D1502A9EBE21002CFD2F /* helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helpers.h; sourceTree = "<group>"; };
 		6FE6D1512A9EBE21002CFD2F /* grant_full_disk_access.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = grant_full_disk_access.h; sourceTree = "<group>"; };
@@ -146,11 +143,9 @@
 		6FE6D1482A9EBE21002CFD2F /* Exploit */ = {
 			isa = PBXGroup;
 			children = (
-				6FE6D1492A9EBE21002CFD2F /* jit.m */,
 				6FE6D14A2A9EBE21002CFD2F /* vm_unaligned_copy_switch_race.c */,
 				6FE6D14B2A9EBE21002CFD2F /* grant_full_disk_access.m */,
 				6FE6D14C2A9EBE21002CFD2F /* helpers.m */,
-				6FE6D14D2A9EBE21002CFD2F /* jit.h */,
 				6FE6D14F2A9EBE21002CFD2F /* vm_unaligned_copy_switch_race.h */,
 				6FE6D1502A9EBE21002CFD2F /* helpers.h */,
 				6FE6D1512A9EBE21002CFD2F /* grant_full_disk_access.h */,
@@ -299,7 +294,6 @@
 			files = (
 				6FE6D15A2A9EBE22002CFD2F /* MacDirtyCowSwift.swift in Sources */,
 				6FE6D1572A9EBE22002CFD2F /* grant_full_disk_access.m in Sources */,
-				6FE6D1552A9EBE22002CFD2F /* jit.m in Sources */,
 				6FE6D1562A9EBE22002CFD2F /* vm_unaligned_copy_switch_race.c in Sources */,
 				6FE6D1582A9EBE22002CFD2F /* helpers.m in Sources */,
 				6FE6D1592A9EBE22002CFD2F /* Wrappers.swift in Sources */,
