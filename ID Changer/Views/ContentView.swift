@@ -102,32 +102,44 @@ struct ContentView: View {
         .padding()
         .onAppear {
             if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1" {
-                do {
-                    // TrollStore method
-                    try FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: "/var/mobile/Library/Caches"), includingPropertiesForKeys: nil)
-                } catch {
-                    // MDC method
-                    // grant r/w access
-                    if #available(iOS 15, *) {
-                        grant_full_disk_access() { error in
-                            if (error != nil) {
-                                UIApplication.shared.alert(title: "Access Error", body: "Error: \(String(describing: error?.localizedDescription))\nPlease close the app and retry.")
+                if #available(iOS 16.2, *) {
+                    UIApplication.shared.alert(title: "Device Not Supported", body: "Your device is not supported by the MDC exploit, the app will not function, sorry.")
+                } else {
+                    do {
+                        // TrollStore method
+                        try FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: "/var/mobile/Library/Caches"), includingPropertiesForKeys: nil)
+                        
+                        // succeeded, get the cards
+                        getCards()
+                    } catch {
+                        // MDC method
+                        // grant r/w access
+                        if #available(iOS 15, *) {
+                            grant_full_disk_access() { error in
+                                if (error != nil) {
+                                    UIApplication.shared.alert(title: "Access Error", body: "Error: \(String(describing: error?.localizedDescription))\nPlease close the app and retry.")
+                                } else {
+                                    // succeeded, get the cards
+                                    getCards()
+                                }
                             }
+                        } else {
+                            UIApplication.shared.alert(title: "MDC Not Supported", body: "Please install via TrollStore")
                         }
-                    } else {
-                        UIApplication.shared.alert(title: "MDC Not Supported", body: "Please install via TrollStore")
                     }
                 }
-                
-                // get the cards
-                let cards = MainCardController.getPasses()
-                if cards.count > 0 {
-                    cardPath = cards[0]
-                    
-                    // check if the user can reset
-                    showReset = MainCardController.canReset(cardID: cardPath)
-                }
             }
+        }
+    }
+    
+    func getCards() {
+        // get the cards
+        let cards = MainCardController.getPasses()
+        if cards.count > 0 {
+            cardPath = cards[0]
+            
+            // check if the user can reset
+            showReset = MainCardController.canReset(cardID: cardPath)
         }
     }
 }
