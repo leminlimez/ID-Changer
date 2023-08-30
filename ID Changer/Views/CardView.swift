@@ -68,7 +68,7 @@ struct CardView: View {
                         Image(uiImage: changingStrip ? stripImage : UIImage(contentsOfFile: "/var/mobile/Library/Passes/Cards/" + cardPath + "/strip@2x.png")!)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 358, height: 100)
+                            .frame(width: 358, height: 111)
                             .contentShape(Rectangle())
                             .clipped()
                     }
@@ -89,7 +89,7 @@ struct CardView: View {
                             .clipShape(Circle())
                             .frame(width: 100, height: 100)
                     }
-                    .offset(y: 50)
+                    .offset(y: 56)
                     .onChange(of: self.thumbnailImage) { _ in
                         changingThumbnail = true
                     }
