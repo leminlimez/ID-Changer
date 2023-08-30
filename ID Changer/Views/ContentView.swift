@@ -81,7 +81,6 @@ struct ContentView: View {
                         .padding(.vertical, 16)
                         .opacity((changingLogo || changingStrip || changingThumbnail) ? 1 : 0)
                         .disabled(!changingLogo && !changingStrip && !changingThumbnail)
-//                        .animation(.spring().speed(1.5), value: $themeManager.preferedThemes.count)
                 }
                 
                 // Reset Button
