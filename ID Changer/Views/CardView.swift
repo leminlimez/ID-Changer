@@ -109,13 +109,12 @@ struct CardView: View {
             }
         }
         .sheet(isPresented: $showSheet) {
-            if changingType == .logo {
-                ImagePickerView(sourceType: .photoLibrary, selectedImage: self.$logoImage)
-            } else if changingType == .strip {
-                ImagePickerView(sourceType: .photoLibrary, selectedImage: self.$stripImage)
-            } else if changingType == .thumbnail {
-                ImagePickerView(sourceType: .photoLibrary, selectedImage: self.$thumbnailImage)
-            }
+            ImagePickerView(
+                sourceType: .photoLibrary,
+                selectedImage: changingType == .logo ? self.$logoImage // logo
+                : changingType == .strip ? self.$stripImage // strip
+                : self.$thumbnailImage // thumbnail
+            )
         }
         .frame(width: 358, height: 448)
     }
