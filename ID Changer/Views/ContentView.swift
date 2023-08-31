@@ -157,7 +157,7 @@ struct ContentView: View {
                         kfd = do_kopen(UInt64(puaf_pages), UInt64(puaf_method), UInt64(kread_method), UInt64(kwrite_method))
                         
                         // clear previous
-                        MainCardController.clearMountedDir()
+                        MainCardController.rmMountedDir()
                         
                         if !FileManager.default.fileExists(atPath: NSHomeDirectory() + "/Documents/mounted") {
                             do {
