@@ -7,6 +7,8 @@
 
 #import "Exploit/fun/helpers.h"
 #import "Exploit/fun/fun.h"
+#import "Exploit/fun/vnode.h"
+#import "Exploit/fun/offsets.h"
 #import "Exploit/fun/grant_full_disk_access.h"
 #import "Exploit/fun/krw.h"
 #import "Exploit/fun/utils.h"
