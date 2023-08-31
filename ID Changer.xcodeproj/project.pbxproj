@@ -32,6 +32,7 @@
 		6FE6D1F12A9FD8AC002CFD2F /* vnode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D1E22A9FD8AC002CFD2F /* vnode.m */; };
 		6FE6D1F22A9FD8AC002CFD2F /* proc.c in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D1E32A9FD8AC002CFD2F /* proc.c */; };
 		6FE6D1F32A9FD90E002CFD2F /* fun.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE6D1D92A9FD8AC002CFD2F /* fun.m */; };
+		6FE6D2762AA11C33002CFD2F /* ADD_YOUR_OWN.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6FE6D2752AA11C33002CFD2F /* ADD_YOUR_OWN.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +86,7 @@
 		6FE6D1C62A9FD8AC002CFD2F /* kwrite_sem_open.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kwrite_sem_open.h; sourceTree = "<group>"; };
 		6FE6D1C72A9FD8AC002CFD2F /* kwrite_dup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kwrite_dup.h; sourceTree = "<group>"; };
 		6FE6D1C92A9FD8AC002CFD2F /* static_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = static_info.h; sourceTree = "<group>"; };
-		6FE6D1CA2A9FD8AC002CFD2F /* dynamic_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dynamic_info.h; sourceTree = "<group>"; };
+		6FE6D1CA2A9FD8AC002CFD2F /* OLD_dynamic_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLD_dynamic_info.h; sourceTree = "<group>"; };
 		6FE6D1CB2A9FD8AC002CFD2F /* puaf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = puaf.h; sourceTree = "<group>"; };
 		6FE6D1CC2A9FD8AC002CFD2F /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		6FE6D1CE2A9FD8AC002CFD2F /* smith.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smith.h; sourceTree = "<group>"; };
@@ -113,6 +114,8 @@
 		6FE6D1E52A9FD8AC002CFD2F /* vm_unaligned_copy_switch_race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vm_unaligned_copy_switch_race.h; sourceTree = "<group>"; };
 		6FE6D1E62A9FD8AC002CFD2F /* helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helpers.h; sourceTree = "<group>"; };
 		6FE6D1E72A9FD8AC002CFD2F /* grant_full_disk_access.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = grant_full_disk_access.h; sourceTree = "<group>"; };
+		6FE6D2742AA11C33002CFD2F /* dynamic_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dynamic_info.h; sourceTree = "<group>"; };
+		6FE6D2752AA11C33002CFD2F /* ADD_YOUR_OWN.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ADD_YOUR_OWN.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,7 +293,9 @@
 			isa = PBXGroup;
 			children = (
 				6FE6D1C92A9FD8AC002CFD2F /* static_info.h */,
-				6FE6D1CA2A9FD8AC002CFD2F /* dynamic_info.h */,
+				6FE6D2742AA11C33002CFD2F /* dynamic_info.h */,
+				6FE6D2752AA11C33002CFD2F /* ADD_YOUR_OWN.txt */,
+				6FE6D1CA2A9FD8AC002CFD2F /* OLD_dynamic_info.h */,
 			);
 			path = info;
 			sourceTree = "<group>";
@@ -412,6 +417,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FE6D2762AA11C33002CFD2F /* ADD_YOUR_OWN.txt in Resources */,
 				6FE6D1682A9ED130002CFD2F /* entitlements.plist in Resources */,
 				6FE6D1232A9EBD1B002CFD2F /* Preview Assets.xcassets in Resources */,
 				6FE6D1202A9EBD1B002CFD2F /* Assets.xcassets in Resources */,
@@ -605,7 +611,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.leminlimez.ID-Changer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -637,7 +643,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.leminlimez.ID-Changer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
