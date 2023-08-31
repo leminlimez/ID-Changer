@@ -52,23 +52,14 @@ class MainCardController {
     
     // MARK: General Card Methods
     
-    static func clearMountedDir() {
+    static func rmMountedDir() {
         let fm = FileManager.default
-        do {
-            let folders = try fm.contentsOfDirectory(atPath: NSHomeDirectory() + "/Documents/mounted").filter {
-                $0.hasSuffix("pkpass");
+        if fm.fileExists(atPath: NSHomeDirectory() + "/Documents/mounted") {
+            do {
+                try fm.removeItem(atPath: NSHomeDirectory() + "/Documents/mounted")
+            } catch {
+                print(error.localizedDescription)
             }
-            
-            for folder in folders {
-                try FileManager.default.removeItem(atPath: folder)
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-        do {
-            try FileManager.default.removeItem(atPath: NSHomeDirectory() + "/Documents/mounted/Cards")
-        } catch {
-            print(error.localizedDescription)
         }
     }
     
