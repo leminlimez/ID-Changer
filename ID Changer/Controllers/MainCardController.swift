@@ -30,7 +30,9 @@ func respring() {
     }
     
     animator.addCompletion { _ in
-        if UserDefaults.standard.string(forKey: "RespringType") ?? "Backboard" == "Backboard" {
+        if #available(iOS 16.2, *) {
+            restartFrontboard()
+        } else if UserDefaults.standard.string(forKey: "RespringType") ?? "Backboard" == "Backboard" {
             restartBackboard()
         } else {
             restartFrontboard()
@@ -46,12 +48,37 @@ func respring() {
 class MainCardController {
     // Code adapted from Cowabunga
     
+    static var folderVnode: UInt64 = 0;
+    
     // MARK: General Card Methods
     
-    static func getPasses() -> [String]
+    static func clearMountedDir() {
+        let fm = FileManager.default
+        do {
+            let folders = try fm.contentsOfDirectory(atPath: NSHomeDirectory() + "/Documents/mounted").filter {
+                $0.hasSuffix("pkpass");
+            }
+            
+            for folder in folders {
+                try FileManager.default.removeItem(atPath: folder)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        do {
+            try FileManager.default.removeItem(atPath: NSHomeDirectory() + "/Documents/mounted/Cards")
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    static func getPasses(fullPath: String) -> [String]
     {
         let fm = FileManager.default
-        let path = "/var/mobile/Library/Passes/Cards/"
+        var path = fullPath + "/"
+        if #available(iOS 16.2, *) {
+            path += "Cards/"
+        }
         var data = [String]()
         
         do {
@@ -60,26 +87,37 @@ class MainCardController {
             }
             
             for pass in passes {
-                let files = try fm.contentsOfDirectory(atPath: path + pass)
+                var vnode: UInt64 = 0
+                if #available(iOS 16.2, *) {
+                    // kfd need to redirect
+                    vnode = redirectCardFolder(pass + "/")
+                }
+                let files = try fm.contentsOfDirectory(atPath: fullPath + "/" + pass)
                 
                 if (files.contains(ChangingFile.logo.rawValue) && files.contains(ChangingFile.strip.rawValue) && files.contains(ChangingFile.thumbnail.rawValue))
                 {
                     data.append(pass)
+                    folderVnode = vnode
+                } else {
+                    if #available(iOS 16.2, *) {
+                        UnRedirectAndRemoveFolder(vnode, path + pass)
+                    }
                 }
             }
             print(data)
             return data
             
         } catch {
+            print(error.localizedDescription)
             return []
         }
     }
     
-    static func canReset(cardID: String) -> Bool {
+    static func canReset(cardID: String, fullPath: String) -> Bool {
         let fm = FileManager.default
         
         for f in ChangingFile.allCases {
-            if fm.fileExists(atPath: "/var/mobile/Library/Passes/Cards/\(cardID)/\(f.rawValue).backup") {
+            if fm.fileExists(atPath: "\(fullPath)/\(cardID)/\(f.rawValue).backup") {
                 return true
             }
         }
@@ -88,35 +126,57 @@ class MainCardController {
     }
     
     // general function to set all changes
-    static func setChanges(cardID: String, logo: UIImage? = nil, strip: UIImage? = nil, thumbnail: UIImage? = nil, holderName: String? = nil, originalName: String? = nil, holderStatus: String? = nil, originalStatus: String? = nil) {
+    static func setChanges(_ kfd: UInt64, vnodeOrig: UInt64, cardID: String, fullPath: String, logo: UIImage? = nil, strip: UIImage? = nil, thumbnail: UIImage? = nil, holderName: String? = nil, originalName: String? = nil, holderStatus: String? = nil, originalStatus: String? = nil) {
         let fm = FileManager.default
         
         // set all the images
-        setImages(cardID: cardID, logo: logo, strip: strip, thumbnail: thumbnail)
+        setImages(cardID: cardID, fullPath: fullPath, logo: logo, strip: strip, thumbnail: thumbnail)
         
         // set the card info
-        setCardInfo(cardID: cardID, holderName: holderName, originalName: originalName, holderStatus: holderStatus, originalStatus: originalStatus)
+        setCardInfo(cardID: cardID, fullPath: fullPath, holderName: holderName, originalName: originalName, holderStatus: holderStatus, originalStatus: originalStatus)
         
-        // do not force delete in case it is already not there
-        try? fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + cardID.replacingOccurrences(of: "pkpass", with: "cache"))
+        if #available(iOS 16.2, *) {
+            // kfd fallback
+            try? fm.removeItem(atPath: "\(fullPath)/Cards/" + cardID.replacingOccurrences(of: "pkpass", with: "cache"))
+        } else {
+            // do not force delete in case it is already not there
+            try? fm.removeItem(atPath: "\(fullPath)/" + cardID.replacingOccurrences(of: "pkpass", with: "cache"))
+        }
+        
+        // for kfd, kclose
+        if #available(iOS 16.2, *) {
+            UnRedirectAndRemoveFolder(folderVnode, fullPath + "/\(cardID)/")
+            UnRedirectAndRemoveFolder(vnodeOrig, fullPath + "/Cards/");
+            do_kclose(kfd)
+        }
         
         // respring to apply changes
         respring()
     }
     
     // general function to reset all changes
-    static func resetChanges(cardID: String, images: Bool = true, cardInfo: Bool = true) {
+    static func resetChanges(_ kfd: UInt64, vnodeOrig: UInt64, cardID: String, fullPath: String, images: Bool = true, cardInfo: Bool = true) {
         let fm = FileManager.default
         
         if images {
-            resetImages(cardID: cardID)
+            resetImages(cardID: cardID, fullPath: fullPath)
         }
         if cardInfo {
-            resetCardInfo(cardID: cardID)
+            resetCardInfo(cardID: cardID, fullPath: fullPath)
         }
         
         // do not force delete in case it is already not there
-        try? fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + cardID.replacingOccurrences(of: "pkpass", with: "cache"))
+        do {
+            try fm.removeItem(atPath: "\(fullPath)/" + cardID.replacingOccurrences(of: "pkpass", with: "cache"))
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        // for kfd, kclose
+        if #available(iOS 16.2, *) {
+            UnRedirectAndRemoveFolder(vnodeOrig, fullPath);
+            do_kclose(kfd)
+        }
         
         // respring to apply changes
         respring()
@@ -125,11 +185,11 @@ class MainCardController {
     
     // MARK: Image Methods
     
-    static func resetImages(cardID: String) {
+    static func resetImages(cardID: String, fullPath: String) {
         let fm = FileManager.default
         
         for f in ChangingFile.allCases {
-            let imgPath = "/var/mobile/Library/Passes/Cards/\(cardID)/\(f.rawValue)"
+            let imgPath = "\(fullPath)/\(cardID)/\(f.rawValue)"
             if fm.fileExists(atPath: imgPath + ".backup") {
                 do {
                     try? fm.removeItem(atPath: imgPath)
@@ -141,27 +201,34 @@ class MainCardController {
         }
     }
     
-    static func setImages(cardID: String, logo: UIImage?, strip: UIImage?, thumbnail: UIImage?) {
+    static func setImages(cardID: String, fullPath: String, logo: UIImage?, strip: UIImage?, thumbnail: UIImage?) {
         // set the logo
         if logo != nil {
-            setImage(cardID: cardID, image: logo!, fileType: .logo)
+            setImage(cardID: cardID, fullPath: fullPath, image: logo!, fileType: .logo)
         }
         // set the strip
         if strip != nil {
-            setImage(cardID: cardID, image: strip!, fileType: .strip)
+            setImage(cardID: cardID, fullPath: fullPath, image: strip!, fileType: .strip)
         }
         // set the thumbnail
         if thumbnail != nil {
-            setImage(cardID: cardID, image: thumbnail!, fileType: .thumbnail)
+            setImage(cardID: cardID, fullPath: fullPath, image: thumbnail!, fileType: .thumbnail)
         }
     }
     
-    static func setImage(cardID: String, image: UIImage, fileType: ChangingFile) {
+    static func setImage(cardID: String, fullPath: String, image: UIImage, fileType: ChangingFile) {
         if let data = image.pngData() {
             do {
                 let fm = FileManager.default
                 
-                let path = "/var/mobile/Library/Passes/Cards/\(cardID)/\(fileType.rawValue)"
+                let path = "\(fullPath)/\(cardID)/\(fileType.rawValue)"
+                
+                if #available(iOS 16.2, *) {
+                    // use kfd method
+                    kfdOverwriteImage(filePath: path, image: data)
+                    usleep(500)
+                    return
+                }
                 
                 if !fm.fileExists(atPath: path + ".backup") {
                     try fm.moveItem(atPath: path, toPath: path + ".backup")
@@ -173,17 +240,31 @@ class MainCardController {
         }
     }
     
+    static func kfdOverwriteImage(filePath: String, image: Data) {
+        do {
+            let imgPath = NSHomeDirectory() + "/Documents/temp.png"
+            if FileManager.default.fileExists(atPath: imgPath) {
+                try? FileManager.default.removeItem(atPath: imgPath)
+            }
+            try image.write(to: URL(fileURLWithPath: imgPath))
+            
+            overwritePath(filePath, imgPath)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     
     // MARK: Card Info Methods
     
-    static func getCardInfo(cardID: String) -> [String: String] {
+    static func getCardInfo(cardID: String, fullPath: String) -> [String: String] {
         // gets info such as the name and labels
         // format:
         // [
         //      "CardHolderName":   Name on Card
         //      "CardHolderStatus": Status of Card Holder (ie. Student)
         // ]
-        let jsonPath = "/var/mobile/Library/Passes/Cards/\(cardID)/pass.json"
+        let jsonPath = "\(fullPath)/\(cardID)/pass.json"
         
         var infoDict: [String: String] = [:]
         
@@ -220,12 +301,12 @@ class MainCardController {
         return infoDict
     }
     
-    static func setCardInfo(cardID: String, holderName: String?, originalName: String?, holderStatus: String?, originalStatus: String?) {
+    static func setCardInfo(cardID: String, fullPath: String, holderName: String?, originalName: String?, holderStatus: String?, originalStatus: String?) {
         // skip the rest of the function if both are nil
         if (holderName == nil || originalName == nil) && (holderStatus == nil || originalStatus == nil) { return }
         
         let fm = FileManager.default
-        let jsonPath = "/var/mobile/Library/Passes/Cards/\(cardID)/pass.json"
+        let jsonPath = "\(fullPath)/\(cardID)/pass.json"
         
         do {
             let contents = try String(contentsOfFile: jsonPath)
@@ -243,6 +324,11 @@ class MainCardController {
             
             // write to the file
             if let data = newContents.data(using: .utf8) {
+                if #available(iOS 16.2, *) {
+                    // kfd fallback
+                    kfdOverwriteInfo(filePath: jsonPath, data: data)
+                    return
+                }
                 if !fm.fileExists(atPath: jsonPath + ".backup") {
                     try fm.moveItem(atPath: jsonPath, toPath: jsonPath + ".backup")
                 }
@@ -253,9 +339,23 @@ class MainCardController {
         }
     }
     
-    static func resetCardInfo(cardID: String) {
+    static func kfdOverwriteInfo(filePath: String, data: Data) {
+        do {
+            let jsonPath = NSHomeDirectory() + "/Documents/temp.json"
+            if FileManager.default.fileExists(atPath: jsonPath) {
+                try? FileManager.default.removeItem(atPath: jsonPath)
+            }
+            try data.write(to: URL(fileURLWithPath: jsonPath))
+            
+            overwritePath(filePath, jsonPath)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    static func resetCardInfo(cardID: String, fullPath: String) {
         let fm = FileManager.default
-        let jsonPath = "/var/mobile/Library/Passes/Cards/\(cardID)/pass.json"
+        let jsonPath = "\(fullPath)/\(cardID)/pass.json"
         
         if fm.fileExists(atPath: jsonPath + ".backup") {
             do {

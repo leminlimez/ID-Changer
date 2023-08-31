@@ -10,7 +10,9 @@ import MacDirtyCowSwift
 
 struct ContentView: View {
     @State var cardPath = ""
+    @State var fullPath = "/var/mobile/Library/Passes/Cards"
     
+    // Card Variables
     @State private var originalName: String = "Your Name"
     @State private var originalStatus: String = "Your Status"
     
@@ -27,6 +29,23 @@ struct ContentView: View {
     @State private var changingThumbnail = false
     
     @State private var showReset: Bool = false
+    
+    // KFD Exploit Stuffs
+    @State private var kfd: UInt64 = 0
+    @State private var vnodeOrig: UInt64 = 0
+        
+    private var puaf_pages_options = [16, 32, 64, 128, 256, 512, 1024, 2048]
+    @AppStorage("PUAF_Pages_Index") private var puaf_pages_index = 7
+    @AppStorage("PUAF_Pages") private var puaf_pages = 0
+    
+    private var puaf_method_options = ["physpuppet", "smith"]
+    @AppStorage("PUAF_Method") private var puaf_method = 1
+    
+    private var kread_method_options = ["kqueue_workloop_ctl", "sem_open"]
+    @AppStorage("KRead_Method") private var kread_method = 1
+    
+    private var kwrite_method_options = ["dup", "sem_open"]
+    @AppStorage("KWrite_Method") private var kwrite_method = 1
     
     var body: some View {
         VStack {
@@ -60,7 +79,7 @@ struct ContentView: View {
                     .foregroundColor(.red)
             } else {
                 CardView(
-                    cardPath: cardPath,
+                    cardPath: cardPath, fullPath: fullPath,
                     holderName: $holderName, holderStatus: $holderStatus,
                     logoImage: $logoImage, changingLogo: $changingLogo,
                     stripImage: $stripImage, changingStrip: $changingStrip,
@@ -75,7 +94,8 @@ struct ContentView: View {
                 Button(action: {
                     print("Applying Card...")
                     MainCardController.setChanges(
-                        cardID: cardPath,
+                        kfd, vnodeOrig: vnodeOrig,
+                        cardID: cardPath, fullPath: fullPath,
                         logo: changingLogo ? logoImage : nil,
                         strip: changingStrip ? stripImage : nil,
                         thumbnail: changingThumbnail ? thumbnailImage : nil,
@@ -99,7 +119,7 @@ struct ContentView: View {
                 if showReset {
                     Button(action: {
                         print("Resetting Card...")
-                        MainCardController.resetChanges(cardID: cardPath)
+                        MainCardController.resetChanges(kfd, vnodeOrig: vnodeOrig, cardID: cardPath, fullPath: fullPath)
                     }) {
                         Image(systemName: "arrow.clockwise")
                             .padding()
@@ -110,13 +130,65 @@ struct ContentView: View {
                     .padding(.trailing, 8)
                 }
             }
+            
+            if #available(iOS 16.2, *) {
+                Button(action: {
+                    UnRedirectAndRemoveFolder(vnodeOrig, fullPath + "/Cards/")
+                    do_kclose(kfd)
+                    
+                    respring()
+                }) {
+                    Text("kclose")
+                }
+            }
         }
         .padding()
         .onAppear {
             if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1" {
-                if #available(iOS 16.2, *) {
-                    UIApplication.shared.alert(title: "Device Not Supported", body: "Your device is not supported by the MDC exploit, the app will not function, sorry.")
+                if #available(iOS 16.7, *) {
+                    UIApplication.shared.alert(title: "Device Not Supported", body: "Your device is not supported by the MDC or KFD exploits, the app will not function, sorry.")
+                } else if #available(iOS 16.2, *) {
+                    // kfd stuff
+                    UIApplication.shared.confirmAlert(title: "kopen needed", body: "The kernel needs to be opened in order for the app to work. Would you like to do that?\n\nNote: Your device may panic (auto reboot) after applying, this will only happen once and is not permanent.", onOK: {
+                        // kopen
+                        UIApplication.shared.alert(title: "Opening Kernel...", body: "Please wait...", withButton: false)
+                        
+                        puaf_pages = puaf_pages_options[puaf_pages_index]
+                        kfd = do_kopen(UInt64(puaf_pages), UInt64(puaf_method), UInt64(kread_method), UInt64(kwrite_method))
+                        
+                        // clear previous
+                        MainCardController.clearMountedDir()
+                        
+                        if !FileManager.default.fileExists(atPath: NSHomeDirectory() + "/Documents/mounted") {
+                            do {
+                                try FileManager.default.createDirectory(atPath: NSHomeDirectory() + "/Documents/mounted", withIntermediateDirectories: false)
+                            } catch {
+                                print(error.localizedDescription)
+                            }
+                        }
+                        
+                        if !FileManager.default.fileExists(atPath: NSHomeDirectory() + "/Documents/mounted/Cards") {
+                            do {
+                                try FileManager.default.createDirectory(atPath: NSHomeDirectory() + "/Documents/mounted/Cards", withIntermediateDirectories: false)
+                            } catch {
+                                print(error.localizedDescription)
+                            }
+                        }
+                        
+                        // init fun offsets
+                        _offsets_init()
+                        
+                        // redirect
+                        fullPath = NSHomeDirectory() + "/Documents/mounted"
+                        
+                        vnodeOrig = redirectCardsFolder()
+                        
+                        getCards()
+                        
+                        UIApplication.shared.dismissAlert(animated: true)
+                    }, noCancel: false)
                 } else {
+                    // mdc/trollstore stuff
                     do {
                         // TrollStore method
                         try FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: "/var/mobile/Library/Caches"), includingPropertiesForKeys: nil)
@@ -146,15 +218,16 @@ struct ContentView: View {
     
     func getCards() {
         // get the cards
-        let cards = MainCardController.getPasses()
+        let cards = MainCardController.getPasses(fullPath: fullPath)
+        
         if cards.count > 0 {
             cardPath = cards[0]
             
             // check if the user can reset
-            showReset = MainCardController.canReset(cardID: cardPath)
+            showReset = MainCardController.canReset(cardID: cardPath, fullPath: fullPath)
             
             // get the card info
-            let cardInfo = MainCardController.getCardInfo(cardID: cardPath)
+            let cardInfo = MainCardController.getCardInfo(cardID: cardPath, fullPath: fullPath)
             if let name = cardInfo["CardHolderName"] {
                 originalName = name
                 holderName = name

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CardView: View {
     @State var cardPath: String
+    @State var fullPath: String
     
     @Binding var holderName: String
     @Binding var holderStatus: String
@@ -49,7 +50,7 @@ struct CardView: View {
                         changingType = .logo
                         showSheet = true
                     }) {
-                        Image(uiImage: changingLogo ? logoImage : UIImage(contentsOfFile: "/var/mobile/Library/Passes/Cards/\(cardPath)/\(ChangingFile.logo.rawValue)")!)
+                        Image(uiImage: changingLogo ? logoImage : UIImage(contentsOfFile: "\(fullPath)/\(cardPath)/\(ChangingFile.logo.rawValue)")!)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 286, height: 50)
@@ -67,7 +68,7 @@ struct CardView: View {
                         changingType = .strip
                         showSheet = true
                     }) {
-                        Image(uiImage: changingStrip ? stripImage : UIImage(contentsOfFile: "/var/mobile/Library/Passes/Cards/\(cardPath)/\(ChangingFile.strip.rawValue)")!)
+                        Image(uiImage: changingStrip ? stripImage : UIImage(contentsOfFile: "\(fullPath)/\(cardPath)/\(ChangingFile.strip.rawValue)")!)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 358, height: 111)
@@ -81,7 +82,7 @@ struct CardView: View {
                         changingType = .thumbnail
                         showSheet = true
                     }) {
-                        Image(uiImage: changingThumbnail ? thumbnailImage : UIImage(contentsOfFile: "/var/mobile/Library/Passes/Cards/\(cardPath)/\(ChangingFile.thumbnail.rawValue)")!)
+                        Image(uiImage: changingThumbnail ? thumbnailImage : UIImage(contentsOfFile: "\(fullPath)/\(cardPath)/\(ChangingFile.thumbnail.rawValue)")!)
                             .resizable()
                             .scaledToFill()
                             .clipped()
