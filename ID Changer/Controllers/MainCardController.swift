@@ -10,9 +10,9 @@ import SwiftUI
 import MacDirtyCowSwift
 
 enum ChangingFile: String, CaseIterable {
-    case logo = "logo@3x.png"
-    case strip = "strip@2x.png"
-    case thumbnail = "thumbnail@2x.png"
+    case logo = "logo"
+    case strip = "strip"
+    case thumbnail = "thumbnail"
 }
 
 func respring() {
@@ -50,6 +50,12 @@ class MainCardController {
     
     static var folderVnode: UInt64 = 0;
     
+    static var scales: [String: String] = [
+        ChangingFile.logo.rawValue: "@2x",
+        ChangingFile.strip.rawValue: "@2x",
+        ChangingFile.thumbnail.rawValue: "@2x"
+    ]
+    
     // MARK: General Card Methods
     
     static func rmMountedDir() {
@@ -85,8 +91,20 @@ class MainCardController {
                 }
                 let files = try fm.contentsOfDirectory(atPath: fullPath + "/" + pass)
                 
-                if (files.contains(ChangingFile.logo.rawValue) && files.contains(ChangingFile.strip.rawValue) && files.contains(ChangingFile.thumbnail.rawValue))
-                {
+                var conts = true
+                for f in ChangingFile.allCases {
+                    let vals = files.filter({
+                        $0.range(of: "\(f.rawValue)@", options: .caseInsensitive) != nil
+                    })
+                    if vals.count > 0 {
+                        let scaleOf = (vals[0].components(separatedBy: f.rawValue).last ?? "@2x").replacingOccurrences(of: ".png", with: "").replacingOccurrences(of: ".backup", with: "")
+                        scales[f.rawValue] = scaleOf
+                    } else {
+                        conts = false
+                    }
+                }
+                
+                if conts {
                     data.append(pass)
                     folderVnode = vnode
                 } else {
@@ -108,7 +126,7 @@ class MainCardController {
         let fm = FileManager.default
         
         for f in ChangingFile.allCases {
-            if fm.fileExists(atPath: "\(fullPath)/\(cardID)/\(f.rawValue).backup") {
+            if fm.fileExists(atPath: "\(fullPath)/\(cardID)/\(f.rawValue)\(scales[f.rawValue] ?? "@2x").png.backup") {
                 return true
             }
         }
@@ -180,7 +198,7 @@ class MainCardController {
         let fm = FileManager.default
         
         for f in ChangingFile.allCases {
-            let imgPath = "\(fullPath)/\(cardID)/\(f.rawValue)"
+            let imgPath = "\(fullPath)/\(cardID)/\(f.rawValue)\(scales[f.rawValue] ?? "@2x").png"
             if fm.fileExists(atPath: imgPath + ".backup") {
                 do {
                     try? fm.removeItem(atPath: imgPath)
@@ -212,7 +230,7 @@ class MainCardController {
             do {
                 let fm = FileManager.default
                 
-                let path = "\(fullPath)/\(cardID)/\(fileType.rawValue)"
+                let path = "\(fullPath)/\(cardID)/\(fileType.rawValue)\(scales[fileType.rawValue] ?? "@2x").png"
                 
                 if #available(iOS 16.2, *) {
                     // use kfd method

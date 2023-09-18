@@ -50,7 +50,7 @@ struct CardView: View {
                         changingType = .logo
                         showSheet = true
                     }) {
-                        Image(uiImage: changingLogo ? logoImage : UIImage(contentsOfFile: "\(fullPath)/\(cardPath)/\(ChangingFile.logo.rawValue)")!)
+                        Image(uiImage: changingLogo ? logoImage : UIImage(contentsOfFile: "\(fullPath)/\(cardPath)/\(ChangingFile.logo.rawValue)\(MainCardController.scales[ChangingFile.logo.rawValue] ?? "@2x").png")!)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 286, height: 50)
@@ -68,7 +68,7 @@ struct CardView: View {
                         changingType = .strip
                         showSheet = true
                     }) {
-                        Image(uiImage: changingStrip ? stripImage : UIImage(contentsOfFile: "\(fullPath)/\(cardPath)/\(ChangingFile.strip.rawValue)")!)
+                        Image(uiImage: changingStrip ? stripImage : UIImage(contentsOfFile: "\(fullPath)/\(cardPath)/\(ChangingFile.strip.rawValue)\(MainCardController.scales[ChangingFile.strip.rawValue] ?? "@2x").png")!)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 358, height: 111)
@@ -82,7 +82,7 @@ struct CardView: View {
                         changingType = .thumbnail
                         showSheet = true
                     }) {
-                        Image(uiImage: changingThumbnail ? thumbnailImage : UIImage(contentsOfFile: "\(fullPath)/\(cardPath)/\(ChangingFile.thumbnail.rawValue)")!)
+                        Image(uiImage: changingThumbnail ? thumbnailImage : UIImage(contentsOfFile: "\(fullPath)/\(cardPath)/\(ChangingFile.thumbnail.rawValue)\(MainCardController.scales[ChangingFile.thumbnail.rawValue] ?? "@2x").png")!)
                             .resizable()
                             .scaledToFill()
                             .clipped()
